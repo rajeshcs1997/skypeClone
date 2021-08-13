@@ -32,7 +32,7 @@ const Splash = ( props ) =>{
         <View style={styles.microsoft}>
           <Image
             style={styles.microsoftlogo}
-            source={require('../assets/microsoft.png')}
+            source={require('../assets/microsoft.jpg')}
           />
           <Text style={styles.microsofttext}>Microsoft</Text>
         </View>

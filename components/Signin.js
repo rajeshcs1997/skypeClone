@@ -17,13 +17,13 @@ const Signin = ( props ) =>{
   const [showpassword, setShowpassword] = React.useState(false);
   const [error, setError] = React.useState("");
   const [loginerror, setLoginerror] = React.useState("");
-  const [Users, setUsers] = React.useState([]);
+  const [Users, setUsers] = React.useState("");
 
   React.useEffect(async () => {
     const items = await AsyncStorage.getItem('Users');
     const items1 = items == null ? [] : JSON.parse(items);
     setUsers(items1)
-  },[]);
+  },[Users]);
 
   const handleNext = () =>{
     if(email == ""){
@@ -51,15 +51,19 @@ const Signin = ( props ) =>{
     data.map(value => {
       if (value.Email===email && value.Password===password) {
         setLoginerror("")
+        setPassword("")
+        setEmail("")
+        setShowemail(!showemail)
+        setShowpassword(!showpassword)
         props.navigation.navigate('Dashboard')
       }
       if (value.Email!==email || value.Password!==password) {
         setLoginerror("user not exist")
       }
     });
-    
+    Users=="" &&  setLoginerror("Please create one before signin")
   }
-  console.log("users", Users)
+  //console.log("users", Users)
   return (
     <View style={styles.container}>
       <View style={styles.logocontainer}>
@@ -72,7 +76,7 @@ const Signin = ( props ) =>{
         <View style={styles.microsoft}>
           <Image
             style={styles.microsoftlogo}
-            source={require('../assets/microsoft.png')}
+            source={require('../assets/microsoft.jpg')}
           />
           <Text style={styles.microsofttext}>Microsoft</Text>
         </View>

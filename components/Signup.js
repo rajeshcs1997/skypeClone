@@ -16,6 +16,7 @@ const Signup = ( props ) =>{
   const [password, setPassword] = React.useState("")
   const [secure, setSecure] = React.useState(true)
   const [error, setError] = React.useState("")
+  const [passerr, setPasserr] = React.useState("")
   const [shownumfield, setShownumfield] = React.useState(true)
   const [hidepassword, setHidepassword] = React.useState(true)
   const [option, setOption] = React.useState("Use your email address instead")
@@ -38,6 +39,11 @@ const Signup = ( props ) =>{
     setError("")
   }
 
+  const handlePassword = (password) =>{
+    setPassword(password)
+    setPasserr("")
+  }
+
   const handleNext = () =>{
     if(email == ""){
       setError("Field can't be blank")
@@ -53,25 +59,23 @@ const Signup = ( props ) =>{
   }
 
   const handleSignup = () =>{
-    let fData={Email:email,Password:password}
-    let data=Users;
-    data.push(fData)
-    setUsers(data)
-    AsyncStorage.setItem('Users', JSON.stringify(Users))
-    setEmail("")
-    setPassword("")
-     Alert.alert(
-      "Signup",
-      "Successfull",
-      [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
-      ]
-    );
+    if(email!=="" && password!==""){
+      let fData={Email:email,Password:password}
+      let data=Users;
+      data.push(fData)
+      setUsers(data)
+      AsyncStorage.setItem('Users', JSON.stringify(Users))
+      setEmail("")
+      setPassword("")
+       Alert.alert(
+        "Signup",
+        "Successfull",
+        [
+          { text: "Sign in", onPress: () => props.navigation.navigate('Signin') }
+        ]
+      );
+    }
+    else setPasserr("Field can't be blank")
   }
   return (
     <View style={styles.container}>
@@ -85,7 +89,7 @@ const Signup = ( props ) =>{
         <View style={styles.microsoft}>
           <Image
             style={styles.microsoftlogo}
-            source={require('../assets/microsoft.png')}
+            source={require('../assets/microsoft.jpg')}
           />
           <Text style={styles.microsofttext}>Microsoft</Text>
         </View>
@@ -129,11 +133,12 @@ const Signup = ( props ) =>{
             </View>
             <Text style={styles.signtext}>Create Password</Text>
             <Text style={{marginLeft: 5, fontSize: 15}}>Enter the password you would like to use with your account</Text>
+            { passerr ? <Text style={{color: 'red', paddingTop: 10}}>{passerr}</Text> : null}
             <TextInput
               style={styles.inputfield}
               placeholderStyle={styles.placeholdertext}
               placeholderTextColor="#808080"
-              onChangeText={(password)=>setPassword(password)}
+              onChangeText={(password)=>{handlePassword(password)}}
               placeholder="Password"
               secureTextEntry={secure}
               value={password}
