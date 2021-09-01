@@ -8,15 +8,15 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import Splash from './components/Splash';
-import Signin from './components/Signin';
-import Signup from './components/Signup';
-import Dashboard from './components/Dashboard';
-import Search from './components/Search';
-import Notification from './components/Notification';
-import Profilechat from './components/Profilechat';
-import Profile from './components/Profile';
-import Settings from './components/Settings';
+import Splash from './src/containers/Splash/index';
+import Signin from './src/containers/Signin/index';
+import Signup from './src/containers/Signup/index';
+import Dashboard from './src/containers/Dashboard/index';
+import Search from './src/containers/Search/index';
+import Notification from './src/containers/Notification/index';
+import Profilechat from './src/containers/Profilechat/index';
+import Profile from './src/containers/Profile/index';
+import Settings from './src/containers/Settings/index';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
